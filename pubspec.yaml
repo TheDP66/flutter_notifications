@@ -25,6 +25,21 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/icons/coworker.png
+  plugin:
+    platforms:
+      android:
+        package: com.dexterous.flutterlocalnotifications
+        pluginClass: FlutterLocalNotificationsPlugin
+      ios:
+        pluginClass: FlutterLocalNotificationsPlugin
+      macos:
+        pluginClass: FlutterLocalNotificationsPlugin
+      linux:
+        default_package: flutter_local_notifications_linux
 
 flutter_launcher_icons:
   ios: true

@@ -26,15 +26,16 @@ Future<void> _showNotificationCustomSound() async {
     sound: RawResourceAndroidNotificationSound('slow_spring_board'),
   );
 
-  // const IOSNotificationDetails iOSPlatformChannelSpecifics =
-  //     IOSNotificationDetails(sound: 'slow_spring_board.aiff');
-  // const MacOSNotificationDetails macOSPlatformChannelSpecifics =
-  //     MacOSNotificationDetails(sound: 'slow_spring_board.aiff');
+  const DarwinNotificationDetails iOSPlatformChannelSpecifics =
+      DarwinNotificationDetails(sound: 'slow_spring_board.aiff');
+
+  const DarwinNotificationDetails macOSPlatformChannelSpecifics =
+      DarwinNotificationDetails(sound: 'slow_spring_board.aiff');
 
   const NotificationDetails platformChannelSpecifics = NotificationDetails(
     android: androidPlatformChannelSpecifics,
-    // iOS: iOSPlatformChannelSpecifics,
-    // macOS: macOSPlatformChannelSpecifics,
+    iOS: iOSPlatformChannelSpecifics,
+    macOS: macOSPlatformChannelSpecifics,
   );
 
   await flutterLocalNotificationsPlugin.show(

@@ -44,26 +44,29 @@ void main() async {
 
   /// Note: permissions aren't requested here just to demonstrate that can be
   /// done later
-  // final IOSInitializationSettings initializationSettingsIOS =
-  //     IOSInitializationSettings(
-  //         requestAlertPermission: false,
-  //         requestBadgePermission: false,
-  //         requestSoundPermission: false,
-  //         onDidReceiveLocalNotification:
-  //             (int id, String? title, String? body, String? payload) async {
-  //           didReceiveLocalNotificationSubject.add(ReceivedNotification(
-  //               id: id, title: title, body: body, payload: payload));
-  //         });
-  // const MacOSInitializationSettings initializationSettingsMacOS =
-  //     MacOSInitializationSettings(
-  //         requestAlertPermission: false,
-  //         requestBadgePermission: false,
-  //         requestSoundPermission: false);
+  final DarwinInitializationSettings initializationSettingsIOS =
+      DarwinInitializationSettings(
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+    onDidReceiveLocalNotification:
+        (int id, String? title, String? body, String? payload) async {
+      didReceiveLocalNotificationSubject.add(ReceivedNotification(
+          id: id, title: title, body: body, payload: payload));
+    },
+  );
 
-  const InitializationSettings initializationSettings = InitializationSettings(
+  const DarwinInitializationSettings initializationSettingsMacOS =
+      DarwinInitializationSettings(
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+  );
+
+  InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
-    // iOS: initializationSettingsIOS,
-    // macOS: initializationSettingsMacOS,
+    iOS: initializationSettingsIOS,
+    macOS: initializationSettingsMacOS,
   );
 
   await flutterLocalNotificationsPlugin.initialize(

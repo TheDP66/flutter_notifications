@@ -1,10 +1,48 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_notification/main.dart';
 import 'package:flutter_notification/model/received_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/cancel_notification_with_tag.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/create_notification_channel.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/create_notification_channel_group.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/delete_notification_channel.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/delete_notification_channel_group.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/get_active_notifications.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/get_notification_channels.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_big_picture_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_big_picture_notification_hidden_large_icon.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_big_text_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_full_screen_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_grouped_notifications.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_inbox_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_indeterminate_progress_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_insistent_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_messaging_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_custom_vibration_icon_led.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_media_style.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_update_channel_description.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_with_chronometer.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_with_custom_sub_text.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_with_custom_timestamp.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_with_no_badge.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_with_tag.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_notification_without_timestamp.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_ongoing_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_progress_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_public_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_sound_uri_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/android_only/show_timeout_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/cancel_all_notifications.dart';
+import 'package:flutter_notification/screen/home_page/widgets/cancel_notification.dart';
+import 'package:flutter_notification/screen/home_page/widgets/check_pending_notification_requests.dart';
+import 'package:flutter_notification/screen/home_page/widgets/ios_only/show_notification_with_attachment.dart';
+import 'package:flutter_notification/screen/home_page/widgets/ios_only/show_notification_with_icon_badge.dart';
+import 'package:flutter_notification/screen/home_page/widgets/ios_only/show_notification_with_subtitle.dart';
+import 'package:flutter_notification/screen/home_page/widgets/ios_only/show_notifications_with_thread_identifier.dart';
 import 'package:flutter_notification/screen/home_page/widgets/repeat_notification.dart';
 import 'package:flutter_notification/screen/home_page/widgets/schedule_daily_ten_am_last_year_notification.dart';
 import 'package:flutter_notification/screen/home_page/widgets/schedule_daily_ten_am_notification.dart';
@@ -13,6 +51,7 @@ import 'package:flutter_notification/screen/home_page/widgets/schedule_weekly_te
 import 'package:flutter_notification/screen/home_page/widgets/show_notification.dart';
 import 'package:flutter_notification/screen/home_page/widgets/show_notification_custom_sound.dart';
 import 'package:flutter_notification/screen/home_page/widgets/show_notification_with_no_body.dart';
+import 'package:flutter_notification/screen/home_page/widgets/show_notification_with_no_sound.dart';
 import 'package:flutter_notification/screen/home_page/widgets/show_notification_with_no_title.dart';
 import 'package:flutter_notification/screen/home_page/widgets/zoned_schedule_notification.dart';
 import 'package:flutter_notification/screen/second_page/second_page.dart';
@@ -175,257 +214,56 @@ class _HomePageState extends State<HomePage> {
                     const ScheduleDailyTenAMLastYearNotification(),
                     const ScheduleWeeklyTenAMNotification(),
                     const ScheduleWeeklyMondayTenAMNotification(),
-                    // PaddedElevatedButton(
-                    //   buttonText: 'Show notification with no sound',
-                    //   onPressed: () async {
-                    //     await _showNotificationWithNoSound();
-                    //   },
-                    // ),
-                    // PaddedElevatedButton(
-                    //   buttonText: 'Check pending notifications',
-                    //   onPressed: () async {
-                    //     await _checkPendingNotificationRequests();
-                    //   },
-                    // ),
-                    // PaddedElevatedButton(
-                    //   buttonText: 'Cancel notification',
-                    //   onPressed: () async {
-                    //     await _cancelNotification();
-                    //   },
-                    // ),
-                    // PaddedElevatedButton(
-                    //   buttonText: 'Cancel all notifications',
-                    //   onPressed: () async {
-                    //     await _cancelAllNotifications();
-                    //   },
-                    // ),
-                    // if (Platform.isAndroid) ...<Widget>[
-                    //   const Text(
-                    //     'Android-specific examples',
-                    //     style: TextStyle(fontWeight: FontWeight.bold),
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show plain notification with payload and update '
-                    //         'channel description',
-                    //     onPressed: () async {
-                    //       await _showNotificationUpdateChannelDescription();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show plain notification as public on every '
-                    //         'lockscreen',
-                    //     onPressed: () async {
-                    //       await _showPublicNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show notification with custom vibration pattern, '
-                    //         'red LED and red icon',
-                    //     onPressed: () async {
-                    //       await _showNotificationCustomVibrationIconLed();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification using Android Uri sound',
-                    //     onPressed: () async {
-                    //       await _showSoundUriNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show notification that times out after 3 seconds',
-                    //     onPressed: () async {
-                    //       await _showTimeoutNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show insistent notification',
-                    //     onPressed: () async {
-                    //       await _showInsistentNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show big picture notification',
-                    //     onPressed: () async {
-                    //       await _showBigPictureNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show big picture notification, hide large icon '
-                    //         'on expand',
-                    //     onPressed: () async {
-                    //       await _showBigPictureNotificationHiddenLargeIcon();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show media notification',
-                    //     onPressed: () async {
-                    //       await _showNotificationMediaStyle();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show big text notification',
-                    //     onPressed: () async {
-                    //       await _showBigTextNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show inbox notification',
-                    //     onPressed: () async {
-                    //       await _showInboxNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show messaging notification',
-                    //     onPressed: () async {
-                    //       await _showMessagingNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show grouped notifications',
-                    //     onPressed: () async {
-                    //       await _showGroupedNotifications();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with tag',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithTag();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Cancel notification with tag',
-                    //     onPressed: () async {
-                    //       await _cancelNotificationWithTag();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show ongoing notification',
-                    //     onPressed: () async {
-                    //       await _showOngoingNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show notification with no badge, alert only once',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithNoBadge();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText:
-                    //         'Show progress notification - updates every second',
-                    //     onPressed: () async {
-                    //       await _showProgressNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show indeterminate progress notification',
-                    //     onPressed: () async {
-                    //       await _showIndeterminateProgressNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification without timestamp',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithoutTimestamp();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with custom timestamp',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithCustomTimestamp();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with custom sub-text',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithCustomSubText();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with chronometer',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithChronometer();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show full-screen notification',
-                    //     onPressed: () async {
-                    //       await _showFullScreenNotification();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Create grouped notification channels',
-                    //     onPressed: () async {
-                    //       await _createNotificationChannelGroup();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Delete notification channel group',
-                    //     onPressed: () async {
-                    //       await _deleteNotificationChannelGroup();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Create notification channel',
-                    //     onPressed: () async {
-                    //       await _createNotificationChannel();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Delete notification channel',
-                    //     onPressed: () async {
-                    //       await _deleteNotificationChannel();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Get notification channels',
-                    //     onPressed: () async {
-                    //       await _getNotificationChannels();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Get active notifications',
-                    //     onPressed: () async {
-                    //       await _getActiveNotifications();
-                    //     },
-                    //   ),
-                    // ],
-                    // if (Platform.isIOS || Platform.isMacOS) ...<Widget>[
-                    //   const Text(
-                    //     'iOS and macOS-specific examples',
-                    //     style: TextStyle(fontWeight: FontWeight.bold),
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with subtitle',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithSubtitle();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with icon badge',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithIconBadge();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notification with attachment',
-                    //     onPressed: () async {
-                    //       await _showNotificationWithAttachment();
-                    //     },
-                    //   ),
-                    //   PaddedElevatedButton(
-                    //     buttonText: 'Show notifications with thread identifier',
-                    //     onPressed: () async {
-                    //       await _showNotificationsWithThreadIdentifier();
-                    //     },
-                    //   ),
-                    // ],
+                    const ShowNotificationWithNoSound(),
+                    const CheckPendingNotificationRequests(),
+                    const CancelNotification(),
+                    const CancelAllNotifications(),
+                    if (Platform.isAndroid) ...<Widget>[
+                      const Text(
+                        'Android-specific examples',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const ShowNotificationUpdateChannelDescription(),
+                      const ShowPublicNotification(),
+                      const ShowNotificationCustomVibrationIconLed(),
+                      const ShowSoundUriNotification(),
+                      const ShowTimeoutNotification(),
+                      const ShowInsistentNotification(),
+                      const ShowBigPictureNotification(),
+                      const ShowBigPictureNotificationHiddenLargeIcon(),
+                      const ShowNotificationMediaStyle(),
+                      const ShowBigTextNotification(),
+                      const ShowInboxNotification(),
+                      const ShowMessagingNotification(),
+                      const ShowGroupedNotifications(),
+                      const ShowNotificationWithTag(),
+                      const CancelNotificationWithTag(),
+                      const ShowOngoingNotification(),
+                      const ShowOngoingNotificationWithNoBadge(),
+                      const ShowProgressNotification(),
+                      const ShowIndeterminateProgressNotification(),
+                      const ShowNotificationWithoutTimestamp(),
+                      const ShowNotificationWithCustomTimestamp(),
+                      const ShowNotificationWithCustomSubText(),
+                      const ShowNotificationWithChronometer(),
+                      const ShowFullScreenNotification(),
+                      const CreateNotificationChannelGroup(),
+                      const DeleteNotificationChannelGroup(),
+                      const CreateNotificationChannel(),
+                      const DeleteNotificationChannel(),
+                      const GetNotificationChannels(),
+                      const GetActiveNotifications(),
+                    ],
+                    if (Platform.isIOS || Platform.isMacOS) ...<Widget>[
+                      const Text(
+                        'iOS and macOS-specific examples',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const ShowNotificationWithSubtitle(),
+                      const ShowNotificationWithIconBadge(),
+                      const ShowNotificationWithAttachment(),
+                      const ShowNotificationsWithThreadIdentifier(),
+                    ],
                   ],
                 ),
               ),
